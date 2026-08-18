@@ -3,10 +3,10 @@
   --bg-app: #080b11;
   --bg-card: rgba(17, 24, 39, 0.7);
   --bg-card-hover: rgba(26, 37, 58, 0.8);
-  --border-glow: rgba(0, 242, 254, 0.15);
+  --border-glow: rgba(255, 122, 0, 0.18);
   --border-normal: rgba(255, 255, 255, 0.08);
   
-  --color-primary: #00f2fe; /* Cyber Cyan */
+  --color-primary: #ff7a00; /* Cyber Neon Orange */
   --color-secondary: #9d4edd; /* Neon Purple */
   --color-success: #059669; /* Emerald Green */
   --color-warning: #d97706; /* Cyber Amber */
@@ -15,7 +15,7 @@
   --glow-success: rgba(5, 150, 105, 0.4);
   --glow-warning: rgba(217, 119, 6, 0.4);
   --glow-danger: rgba(220, 38, 38, 0.5);
-  --glow-primary: rgba(0, 242, 254, 0.4);
+  --glow-primary: rgba(255, 122, 0, 0.48);
   
   --text-main: #f3f4f6;
   --text-muted: #9ca3af;
@@ -97,7 +97,7 @@ h1, h2, h3, h4 {
 
 .panel:hover {
   border-color: var(--border-glow);
-  box-shadow: 0 15px 35px -5px rgba(0, 242, 254, 0.05), 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 15px 35px -5px rgba(255, 122, 0, 0.05), 0 10px 30px -10px rgba(0, 0, 0, 0.5);
 }
 
 /* Header Styling */
@@ -106,7 +106,7 @@ h1, h2, h3, h4 {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 2px solid rgba(0, 242, 254, 0.2);
+  border-bottom: 2px solid rgba(255, 122, 0, 0.2);
   padding: 1rem 1.5rem;
 }
 
@@ -118,7 +118,7 @@ h1, h2, h3, h4 {
 
 .tst-logo {
   height: 48px;
-  filter: drop-shadow(0 0 8px rgba(0, 242, 254, 0.4));
+  filter: drop-shadow(0 0 8px rgba(255, 122, 0, 0.4));
 }
 
 .header-title-block h1 {
