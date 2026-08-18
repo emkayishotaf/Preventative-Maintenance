@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Edge AI Predictive Maintenance Dashboard</title>
+  <!-- Google Fonts for premium appearance -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Chart.js for real-time visualization -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- FontAwesome / Lucide Icons via SVG or CDN for neat dashboard indicators -->
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="dashboard-container">
+    
+    <!-- HEADER PANEL -->
+    <header class="panel header-panel">
+      <div class="header-left">
+        <!-- Modern SVG Graphic representing industrial rotor/maintenance -->
+        <svg class="tst-logo" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="50" cy="50" r="40" stroke="#00f2fe" stroke-width="6" stroke-dasharray="25 10" />
+          <circle cx="50" cy="50" r="28" stroke="#9d4edd" stroke-width="4" />
+          <path d="M50 20V40M50 60V80M20 50H40M60 50H80" stroke="#f3f4f6" stroke-width="4" stroke-linecap="round"/>
+          <circle cx="50" cy="50" r="10" fill="#00f2fe" />
+        </svg>
+        <div class="header-title-block">
+          <h1>Edge-Based AI Predictive Maintenance</h1>
+          <p>Rotating Machinery (Motor / Pump) Health & Anomaly Detection System</p>
+        </div>
+      </div>
+      
+      <!-- Raspberry Pi 4 Edge Status -->
+      <div class="edge-status-box">
+        <div class="status-dot pulsing" id="edge-pulse-dot"></div>
+        <div>
+          <strong>Edge Gateway:</strong> Raspberry Pi 4 Model B
+          <span style="color: var(--text-muted); margin-left: 0.5rem;">|</span>
+          <span style="margin-left: 0.5rem;">CPU Temp: <span id="pi-cpu-temp" style="color: var(--color-primary);">42.3</span>°C</span>
+          <span style="color: var(--text-muted); margin-left: 0.5rem;">|</span>
+          <span style="margin-left: 0.5rem;">Mem: <span id="pi-ram" style="color: var(--color-secondary);">23.4</span>%</span>
+          <span style="color: var(--text-muted); margin-left: 0.5rem;">|</span>
+          <span style="margin-left: 0.5rem;">Load: <span id="pi-load" style="color: var(--color-success);">14.2</span>%</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- SIDEBAR CONTROL PANEL -->
+    <aside class="panel sidebar">
+      
+      <!-- Baselines Configuration -->
+      <section>
+        <h2>⚙️ Motor Baselines</h2>
+        
+        <div class="form-group">
+          <label for="input-ref-current">
+            <span>Reference Current</span>
+            <span id="label-ref-current">10.0 A</span>
+          </label>
+          <input type="number" id="input-ref-current" value="10.0" step="0.5" min="1.0" max="100.0">
+        </div>
+
+        <div class="form-group">
+          <label for="input-ref-speed">
+            <span>Reference Speed</span>
+            <span id="label-ref-speed">1500 RPM</span>
+          </label>
+          <input type="number" id="input-ref-speed" value="1500" step="50" min="500" max="6000">
+        </div>
+
+        <div class="form-group">
+          <label for="input-ref-temp">
+            <span>Normal Temperature</span>
+            <span id="label-ref-temp">45.0 °C</span>
+          </label>
+          <input type="number" id="input-ref-temp" value="45.0" step="1.0" min="20.0" max="100.0">
+        </div>
+
+        <div class="form-group">
+          <label for="input-ref-vibration">
+            <span>Normal Vibration</span>
+            <span id="label-ref-vibration">0.50 g</span>
+          </label>
+          <input type="number" id="input-ref-vibration" value="0.50" step="0.05" min="0.1" max="5.0">
+        </div>
+
+        <div class="form-group slider-container">
+          <label for="input-tolerance">
+            <span>Load Tolerance Threshold</span>
+            <span id="label-tolerance">±5%</span>
+          </label>
+          <input type="range" id="input-tolerance" min="1" max="25" value="5">
+          <div style="display:flex; justify-content:space-between; font-size:0.65rem; color:var(--text-muted);">
+            <span>±1%</span>
+            <span>±25%</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Simulation Profiles -->
+      <section>
+        <h2>⚡ Scenario Simulator</h2>
+        <p style="font-size:0.75rem; color:var(--text-muted); margin-bottom:0.5rem;">
+          Inject various machine faults to test the anomaly detection engine.
+        </p>
+        <div class="preset-grid">
+          <button class="btn-preset active" id="btn-normal">Healthy Load</button>
+          <button class="btn-preset" id="btn-overload">Overload</button>
+          <button class="btn-preset" id="btn-underload">Underload</button>
+          <button class="btn-preset" id="btn-bearing">Bearing Wear</button>
+          <button class="btn-preset" id="btn-misalignment">Misalignment</button>
+          <button class="btn-preset" id="btn-overheating">Overheating</button>
+        </div>
+        
+        <div class="sim-controls">
+          <button class="btn-sim" id="btn-sim-play">
+            <span id="sim-play-icon">⏸️</span> <span id="sim-play-text">Pause Sim</span>
+          </button>
+          <button class="btn-sim" id="btn-sim-reset">🔄 Reset Data</button>
+        </div>
+      </section>
+
+      <!-- Edge Machine Learning Stack -->
+      <section style="margin-top:auto; font-size:0.8rem;">
+        <h2>🧠 Edge ML Pipeline</h2>
+        <div class="ml-info-grid">
+          <div class="ml-info-item">
+            <h4>Features</h4>
+            <p>RMS, Kurtosis, Crest Factor, Gradient</p>
+          </div>
+          <div class="ml-info-item">
+            <h4>Algorithm</h4>
+            <p>Isolation Forest (Unsupervised)</p>
+          </div>
+          <div class="ml-info-item">
+            <h4>Edge Dev</h4>
+            <p>Pi 4 Local Deployment</p>
+          </div>
+        </div>
+      </section>
+
+    </aside>
+
+    <!-- MAIN DASHBOARD CONTENT -->
+    <main class="main-content">
+      
+      <!-- TOP METRICS GRID -->
+      <div class="metrics-grid">
+        
+        <!-- Motor Load / Current -->
+        <div class="panel metric-card success" id="card-current">
+          <div class="metric-header">
+            <span>Motor Current</span>
+            <span>⚡ Load</span>
+          </div>
+          <div class="metric-value-container">
+            <div class="metric-value" id="val-current">9.8</div>
+            <div class="metric-unit">A</div>
+          </div>
+          <div class="metric-status status-ok" id="status-current">
+            🟢 Normal Operating Limit
+          </div>
+        </div>
+
+        <!-- Temperature -->
+        <div class="panel metric-card success" id="card-temp">
+          <div class="metric-header">
+            <span>Temperature</span>
+            <span>🌡️ Thermal</span>
+          </div>
+          <div class="metric-value-container">
+            <div class="metric-value" id="val-temp">44.6</div>
+            <div class="metric-unit">°C</div>
+          </div>
+          <div class="metric-status status-ok" id="status-temp">
+            🟢 Within Expected Limits
+          </div>
+        </div>
+
+        <!-- Vibration RMS -->
+        <div class="panel metric-card success" id="card-vibration">
+          <div class="metric-header">
+            <span>Vibration (RMS)</span>
+            <span>🔊 Acoustic</span>
+          </div>
+          <div class="metric-value-container">
+            <div class="metric-value" id="val-vibration">0.48</div>
+            <div class="metric-unit">g</div>
+          </div>
+          <div class="metric-status status-ok" id="status-vibration">
+            🟢 Vibration Nominal
+          </div>
+        </div>
+
+        <!-- Speed -->
+        <div class="panel metric-card success" id="card-speed">
+          <div class="metric-header">
+            <span>Shaft Speed</span>
+            <span>🔄 Rotary</span>
+          </div>
+          <div class="metric-value-container">
+            <div class="metric-value" id="val-speed">1503</div>
+            <div class="metric-unit">RPM</div>
+          </div>
+          <div class="metric-status status-ok" id="status-speed">
+            🟢 Synchronous Speed
+          </div>
+        </div>
+
+        <!-- Anomaly Score Combined Card -->
+        <div class="panel score-gauge-card" id="card-anomaly-score">
+          <div class="gauge-svg-container">
+            <svg width="110" height="110" viewBox="0 0 100 100">
+              <circle class="gauge-track" cx="50" cy="50" r="45" />
+              <circle class="gauge-fill" id="anomaly-gauge-fill" cx="50" cy="50" r="45" />
+            </svg>
+            <div class="gauge-text">
+              <span class="gauge-text-value" id="val-anomaly-score">0.12</span>
+              <span class="gauge-text-label">Score</span>
+            </div>
+          </div>
+          
+          <div class="gauge-info">
+            <h3>Machine Health Classification</h3>
+            <div>
+              <span class="classification-badge healthy" id="classification-badge">Healthy</span>
+            </div>
+            <div class="action-recommendation">
+              <strong>Recommended Action:</strong> 
+              <span id="val-recommendation">No Action required. Continual monitoring.</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- MAIN CHARTS ROW -->
+      <div class="charts-grid">
+        
+        <!-- Temp Monitoring Chart -->
+        <div class="panel chart-panel">
+          <div class="chart-panel-header">
+            <h3>🌡️ Result 1: Motor Temperature Monitoring</h3>
+            <span style="font-size:0.7rem; color:var(--text-muted); padding:0.1rem 0.5rem; background:rgba(255,255,255,0.03); border-radius:10px;">
+              Sampling Rate: 1 Hz
+            </span>
+          </div>
+          <div class="chart-canvas-container">
+            <canvas id="chart-temperature"></canvas>
+          </div>
+        </div>
+
+        <!-- Vibration RMS Chart -->
+        <div class="panel chart-panel">
+          <div class="chart-panel-header">
+            <h3>🔊 Result 2: Vibration Monitoring (RMS)</h3>
+            <span style="font-size:0.7rem; color:var(--text-muted); padding:0.1rem 0.5rem; background:rgba(255,255,255,0.03); border-radius:10px;">
+              Sampling Rate: 2 kHz (RMS Extracted)
+            </span>
+          </div>
+          <div class="chart-canvas-container">
+            <canvas id="chart-vibration"></canvas>
+          </div>
+        </div>
+
+        <!-- Load (Current) vs Speed Chart -->
+        <div class="panel chart-panel">
+          <div class="chart-panel-header">
+            <h3>⚡ Result 3: Load (Current) & Speed Analysis</h3>
+            <span style="font-size:0.7rem; color:var(--text-muted); padding:0.1rem 0.5rem; background:rgba(255,255,255,0.03); border-radius:10px;">
+              Baseline Envelopes Checked
+            </span>
+          </div>
+          <div class="chart-canvas-container">
+            <canvas id="chart-current-speed"></canvas>
+          </div>
+        </div>
+
+        <!-- Anomaly Score History Chart -->
+        <div class="panel chart-panel">
+          <div class="chart-panel-header">
+            <h3>🧠 Result 4: Isolation Forest Anomaly Score Trend</h3>
+            <span style="font-size:0.7rem; color:var(--text-muted); padding:0.1rem 0.5rem; background:rgba(255,255,255,0.03); border-radius:10px;">
+              ML Classification Output
+            </span>
+          </div>
+          <div class="chart-canvas-container">
+            <canvas id="chart-anomaly-trend"></canvas>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ACTIVE SIGNAL OUTPUTS (RELAYS) -->
+      <div class="panel signals-panel">
+        <h3>🚨 Visual Relay Outputs (Active Signals Sent to Application Interface)</h3>
+        <div class="signals-container">
+          
+          <div class="signal-relay" id="relay-underload" data-relay-type="underload">
+            <div class="relay-led"></div>
+            <div class="relay-label">Underload Alarm</div>
+            <div class="relay-desc">Tripped if current is below configured normal tolerance (-5%).</div>
+          </div>
+
+          <div class="signal-relay" id="relay-overload" data-relay-type="overload">
+            <div class="relay-led"></div>
+            <div class="relay-label">Overload Trip</div>
+            <div class="relay-desc">Tripped if current is above configured normal tolerance (+5%).</div>
+          </div>
+
+          <div class="signal-relay" id="relay-temp" data-relay-type="temp">
+            <div class="relay-led"></div>
+            <div class="relay-label">Thermal Siren</div>
+            <div class="relay-desc">Tripped if motor temp exceeds critical safety threshold.</div>
+          </div>
+
+          <div class="signal-relay" id="relay-estop" data-relay-type="estop">
+            <div class="relay-led"></div>
+            <div class="relay-label">E-Stop Interlock</div>
+            <div class="relay-desc">Emergency safety cutoff. Active on extreme ML anomaly score.</div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- BOTTOM DIAGNOSTICS & SYSTEM EVENT LOG -->
+      <div class="diagnostics-panel">
+        
+        <!-- Trouble shooter dynamic recommendation -->
+        <div class="panel diag-left">
+          <h3>🩺 Diagnostics & Troubleshooting Recommendations</h3>
+          <div class="troubleshooting-card" id="trouble-card">
+            <div class="trouble-title" id="trouble-title">⚙️ Normal Operation</div>
+            <div class="trouble-desc" id="trouble-desc">
+              The motor status is verified healthy. Visual signals and physical parameters match the configured baseline tolerances.
+            </div>
+            <ul class="trouble-steps" id="trouble-steps">
+              <li>No action required. Check back during scheduled shift inspection.</li>
+              <li>Ensure regular maintenance logs are updated.</li>
+              <li>Verify that oil/lubricant levels are checked monthly.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Event Log -->
+        <div class="panel diag-right">
+          <h3>📋 Live System Event Log</h3>
+          <div class="event-log-container">
+            <table class="log-table" id="log-table">
+              <thead>
+                <tr>
+                  <th style="width: 25%;">Timestamp</th>
+                  <th style="width: 20%;">Signal</th>
+                  <th style="width: 15%;">Level</th>
+                  <th style="width: 40%;">Description</th>
+                </tr>
+              </thead>
+              <tbody id="log-tbody">
+                <!-- Log rows filled dynamically -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+
+    </main>
+
+  </div>
+
+  <!-- Main script logic -->
+  <script src="app.js"></script>
+</body>
+</html>
