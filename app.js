@@ -255,8 +255,8 @@ function initCharts() {
       datasets: [
         {
           label: 'Vibration RMS (g)',
-          borderColor: '#00f2fe',
-          backgroundColor: 'rgba(0, 242, 254, 0.08)',
+          borderColor: '#ec4899',
+          backgroundColor: 'rgba(236, 72, 153, 0.08)',
           borderWidth: 2,
           data: [],
           fill: true

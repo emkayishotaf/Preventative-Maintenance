@@ -1,21 +1,22 @@
 /* CSS Variables for Premium Industrial Sci-Fi Styling */
 :root {
-  --bg-app: #080b11;
-  --bg-card: rgba(17, 24, 39, 0.7);
-  --bg-card-hover: rgba(26, 37, 58, 0.8);
-  --border-glow: rgba(255, 122, 0, 0.18);
-  --border-normal: rgba(255, 255, 255, 0.08);
+  --bg-app: #030208;
+  --bg-card: rgba(13, 11, 24, 0.7);
+  --bg-card-hover: rgba(22, 17, 38, 0.8);
+  --border-glow: rgba(var(--color-primary-rgb), 0.18);
+  --border-normal: rgba(255, 255, 255, 0.05);
   
-  --color-primary: #ff7a00; /* Cyber Neon Orange */
-  --color-secondary: #9d4edd; /* Neon Purple */
-  --color-success: #059669; /* Emerald Green */
-  --color-warning: #d97706; /* Cyber Amber */
-  --color-danger: #dc2626; /* Hazard Red */
+  --color-primary: #a855f7; /* Neural Purple */
+  --color-primary-rgb: 168, 85, 247; /* RGB components for transparency */
+  --color-secondary: #ec4899; /* Cyber Fuchsia */
+  --color-success: #10b981; /* Emerald Green */
+  --color-warning: #f59e0b; /* Cyber Amber */
+  --color-danger: #ef4444; /* Hazard Red */
   
-  --glow-success: rgba(5, 150, 105, 0.4);
-  --glow-warning: rgba(217, 119, 6, 0.4);
-  --glow-danger: rgba(220, 38, 38, 0.5);
-  --glow-primary: rgba(255, 122, 0, 0.48);
+  --glow-success: rgba(16, 185, 129, 0.4);
+  --glow-warning: rgba(245, 158, 11, 0.4);
+  --glow-danger: rgba(239, 68, 68, 0.5);
+  --glow-primary: rgba(var(--color-primary-rgb), 0.48);
   
   --text-main: #f3f4f6;
   --text-muted: #9ca3af;
@@ -36,8 +37,8 @@
 body {
   background-color: var(--bg-app);
   background-image: 
-    radial-gradient(at 10% 20%, rgba(13, 20, 35, 0.8) 0px, transparent 50%),
-    radial-gradient(at 90% 80%, rgba(20, 10, 35, 0.6) 0px, transparent 50%);
+    radial-gradient(at 10% 20%, rgba(168, 85, 247, 0.08) 0px, transparent 40%),
+    radial-gradient(at 90% 80%, rgba(236, 72, 153, 0.05) 0px, transparent 40%);
   color: var(--text-main);
   font-family: var(--font-family);
   min-height: 100vh;
@@ -97,7 +98,7 @@ h1, h2, h3, h4 {
 
 .panel:hover {
   border-color: var(--border-glow);
-  box-shadow: 0 15px 35px -5px rgba(255, 122, 0, 0.05), 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 15px 35px -5px rgba(var(--color-primary-rgb), 0.05), 0 10px 30px -10px rgba(0, 0, 0, 0.5);
 }
 
 /* Header Styling */
@@ -106,7 +107,7 @@ h1, h2, h3, h4 {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 2px solid rgba(255, 122, 0, 0.2);
+  border-bottom: 2px solid rgba(var(--color-primary-rgb), 0.2);
   padding: 1rem 1.5rem;
 }
 
@@ -118,7 +119,7 @@ h1, h2, h3, h4 {
 
 .tst-logo {
   height: 48px;
-  filter: drop-shadow(0 0 8px rgba(255, 122, 0, 0.4));
+  filter: drop-shadow(0 0 8px rgba(var(--color-primary-rgb), 0.4));
 }
 
 .header-title-block h1 {
@@ -208,7 +209,7 @@ h1, h2, h3, h4 {
 .form-group select:focus {
   outline: none;
   border-color: var(--color-primary);
-  box-shadow: 0 0 8px rgba(0, 242, 254, 0.2);
+  box-shadow: 0 0 8px rgba(var(--color-primary-rgb), 0.2);
 }
 
 /* Range Slider */
@@ -266,7 +267,7 @@ h1, h2, h3, h4 {
 }
 
 .btn-preset:hover {
-  background: rgba(0, 242, 254, 0.1);
+  background: rgba(var(--color-primary-rgb), 0.1);
   border-color: var(--color-primary);
 }
 
@@ -275,7 +276,7 @@ h1, h2, h3, h4 {
   border-color: transparent;
   color: var(--text-dark);
   font-weight: bold;
-  box-shadow: 0 0 10px rgba(0, 242, 254, 0.3);
+  box-shadow: 0 0 10px rgba(var(--color-primary-rgb), 0.3);
 }
 
 /* Simulator controls */
