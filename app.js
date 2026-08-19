@@ -179,26 +179,26 @@ function initCharts() {
       legend: {
         display: true,
         position: 'top',
-        labels: { color: '#9ca3af', font: { family: 'Outfit', size: 10 } }
+        labels: { color: '#475569', font: { family: 'Outfit', size: 10 } }
       },
       tooltip: {
         mode: 'index',
         intersect: false,
         backgroundColor: 'rgba(15, 23, 42, 0.95)',
-        titleColor: '#00f2fe',
+        titleColor: '#3b82f6',
         bodyColor: '#f3f4f6',
-        borderColor: 'rgba(0, 242, 254, 0.2)',
+        borderColor: 'rgba(59, 130, 246, 0.2)',
         borderWidth: 1
       }
     },
     scales: {
       x: {
-        grid: { color: 'rgba(255, 255, 255, 0.03)' },
-        ticks: { color: '#9ca3af', font: { family: 'Outfit', size: 9 } }
+        grid: { color: 'rgba(15, 23, 42, 0.06)' },
+        ticks: { color: '#475569', font: { family: 'Outfit', size: 9 } }
       },
       y: {
-        grid: { color: 'rgba(255, 255, 255, 0.03)' },
-        ticks: { color: '#9ca3af', font: { family: 'Outfit', size: 9 } }
+        grid: { color: 'rgba(15, 23, 42, 0.06)' },
+        ticks: { color: '#475569', font: { family: 'Outfit', size: 9 } }
       }
     },
     interaction: {
@@ -289,17 +289,17 @@ function initCharts() {
     type: 'linear',
     display: true,
     position: 'left',
-    title: { display: true, text: 'Current (A)', color: '#a78bfa' },
-    grid: { color: 'rgba(255, 255, 255, 0.03)' },
-    ticks: { color: '#9ca3af' }
+    title: { display: true, text: 'Current (A)', color: '#4f46e5' },
+    grid: { color: 'rgba(15, 23, 42, 0.06)' },
+    ticks: { color: '#475569' }
   };
   currSpeedOptions.scales.ySpeed = {
     type: 'linear',
     display: true,
     position: 'right',
-    title: { display: true, text: 'Speed (RPM)', color: '#10b981' },
+    title: { display: true, text: 'Speed (RPM)', color: '#0d9488' },
     grid: { drawOnChartArea: false }, // Avoid grid overlay
-    ticks: { color: '#9ca3af' }
+    ticks: { color: '#475569' }
   };
 
   charts.currentSpeed = new Chart(ctxCurrSpeed, {
@@ -309,14 +309,14 @@ function initCharts() {
       datasets: [
         {
           label: 'Current (A)',
-          borderColor: '#a78bfa',
+          borderColor: '#4f46e5',
           borderWidth: 2,
           data: [],
           yAxisID: 'y'
         },
         {
           label: 'Lower Limit (-5%)',
-          borderColor: 'rgba(167, 139, 250, 0.3)',
+          borderColor: 'rgba(79, 70, 229, 0.3)',
           borderDash: [4, 4],
           borderWidth: 1,
           data: [],
@@ -325,7 +325,7 @@ function initCharts() {
         },
         {
           label: 'Upper Limit (+5%)',
-          borderColor: 'rgba(167, 139, 250, 0.3)',
+          borderColor: 'rgba(79, 70, 229, 0.3)',
           borderDash: [4, 4],
           borderWidth: 1,
           data: [],
@@ -334,7 +334,7 @@ function initCharts() {
         },
         {
           label: 'Speed (RPM)',
-          borderColor: '#10b981',
+          borderColor: '#0d9488',
           borderWidth: 1.5,
           data: [],
           yAxisID: 'ySpeed'
