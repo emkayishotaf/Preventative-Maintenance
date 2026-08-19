@@ -1,26 +1,26 @@
-/* CSS Variables for Premium Light Tech HMI Styling */
+/* CSS Variables for Premium Industrial Sci-Fi Styling */
 :root {
-  --bg-app: #f1f5f9;
-  --bg-card: rgba(255, 255, 255, 0.85);
-  --bg-card-hover: rgba(255, 255, 255, 0.95);
-  --border-glow: rgba(var(--color-primary-rgb), 0.25);
-  --border-normal: rgba(15, 23, 42, 0.08);
+  --bg-app: #080b11;
+  --bg-card: rgba(17, 24, 39, 0.7);
+  --bg-card-hover: rgba(26, 37, 58, 0.8);
+  --border-glow: rgba(var(--color-primary-rgb), 0.18);
+  --border-normal: rgba(255, 255, 255, 0.08);
   
-  --color-primary: #3b82f6; /* Modern Tech Blue */
-  --color-primary-rgb: 59, 130, 246; /* RGB components for transparency */
-  --color-secondary: #8b5cf6; /* Tech Purple */
-  --color-success: #0d9488; /* Teal / Green */
-  --color-warning: #ea580c; /* Warning Orange */
-  --color-danger: #e11d48; /* Crimson / Red */
+  --color-primary: #00f2fe; /* Cyber Cyan */
+  --color-primary-rgb: 0, 242, 254; /* RGB components for transparency */
+  --color-secondary: #9d4edd; /* Neon Purple */
+  --color-success: #059669; /* Emerald Green */
+  --color-warning: #d97706; /* Cyber Amber */
+  --color-danger: #dc2626; /* Hazard Red */
   
-  --glow-success: rgba(13, 148, 136, 0.2);
-  --glow-warning: rgba(234, 88, 12, 0.2);
-  --glow-danger: rgba(225, 29, 72, 0.25);
-  --glow-primary: rgba(var(--color-primary-rgb), 0.3);
+  --glow-success: rgba(5, 150, 105, 0.4);
+  --glow-warning: rgba(217, 119, 6, 0.4);
+  --glow-danger: rgba(220, 38, 38, 0.5);
+  --glow-primary: rgba(var(--color-primary-rgb), 0.48);
   
-  --text-main: #0f172a;
-  --text-muted: #64748b;
-  --text-dark: #f8fafc; /* For text on dark badges/buttons */
+  --text-main: #f3f4f6;
+  --text-muted: #9ca3af;
+  --text-dark: #111827;
   
   --font-family: 'Outfit', 'Inter', system-ui, -apple-system, sans-serif;
   --transition-fast: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
@@ -37,8 +37,8 @@
 body {
   background-color: var(--bg-app);
   background-image: 
-    radial-gradient(at 10% 20%, rgba(59, 130, 246, 0.05) 0px, transparent 40%),
-    radial-gradient(at 90% 80%, rgba(139, 92, 246, 0.04) 0px, transparent 40%);
+    radial-gradient(at 10% 20%, rgba(13, 20, 35, 0.8) 0px, transparent 50%),
+    radial-gradient(at 90% 80%, rgba(20, 10, 35, 0.6) 0px, transparent 50%);
   color: var(--text-main);
   font-family: var(--font-family);
   min-height: 100vh;
@@ -56,11 +56,11 @@ body {
   background: var(--bg-app);
 }
 ::-webkit-scrollbar-thumb {
-  background: rgba(0, 0, 0, 0.1);
+  background: rgba(255, 255, 255, 0.1);
   border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(0, 0, 0, 0.2);
+  background: rgba(255, 255, 255, 0.2);
 }
 
 /* Typography Utility */
@@ -142,10 +142,10 @@ h1, h2, h3, h4 {
   display: flex;
   align-items: center;
   gap: 0.75rem;
-  background: rgba(0, 0, 0, 0.03);
+  background: rgba(255, 255, 255, 0.03);
   padding: 0.5rem 1rem;
   border-radius: 30px;
-  border: 1px solid rgba(0, 0, 0, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.05);
   font-size: 0.8rem;
 }
 
@@ -195,7 +195,7 @@ h1, h2, h3, h4 {
 .form-group input[type="number"], 
 .form-group select {
   width: 100%;
-  background: rgba(255, 255, 255, 0.95);
+  background: rgba(0, 0, 0, 0.3);
   border: 1px solid var(--border-normal);
   color: var(--text-main);
   padding: 0.6rem 0.8rem;
@@ -432,7 +432,7 @@ h1, h2, h3, h4 {
 
 .gauge-track {
   fill: none;
-  stroke: rgba(0, 0, 0, 0.06);
+  stroke: rgba(255, 255, 255, 0.05);
   stroke-width: 8;
 }
 
@@ -592,8 +592,8 @@ h1, h2, h3, h4 {
 }
 
 .signal-relay {
-  background: rgba(0, 0, 0, 0.01);
-  border: 1px solid rgba(0, 0, 0, 0.05);
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.05);
   padding: 1rem;
   border-radius: 12px;
   display: flex;
@@ -608,8 +608,8 @@ h1, h2, h3, h4 {
   width: 20px;
   height: 20px;
   border-radius: 50%;
-  background-color: #cbd5e1; /* Soft light grey state */
-  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15);
+  background-color: #374151; /* Dark grey state */
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.5);
   transition: all 0.3s;
 }
 
@@ -685,8 +685,8 @@ h1, h2, h3, h4 {
 
 /* Dynamic Troubleshooting layout */
 .troubleshooting-card {
-  background: rgba(0, 0, 0, 0.01);
-  border: 1px solid rgba(0, 0, 0, 0.05);
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.05);
   border-radius: 12px;
   padding: 1.2rem;
   height: 250px;
@@ -732,7 +732,7 @@ h1, h2, h3, h4 {
 .event-log-container {
   height: 250px;
   overflow-y: auto;
-  border: 1px solid rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.05);
   border-radius: 12px;
 }
 
@@ -744,7 +744,7 @@ h1, h2, h3, h4 {
 }
 
 .log-table th {
-  background: rgba(0, 0, 0, 0.04);
+  background: rgba(0, 0, 0, 0.4);
   color: var(--text-muted);
   font-weight: 600;
   text-transform: uppercase;
@@ -780,8 +780,8 @@ h1, h2, h3, h4 {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 1rem;
-  background: rgba(0, 0, 0, 0.01);
-  border: 1px solid rgba(0, 0, 0, 0.04);
+  background: rgba(255, 255, 255, 0.01);
+  border: 1px solid rgba(255, 255, 255, 0.05);
   padding: 1rem;
   border-radius: 12px;
 }
